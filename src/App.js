@@ -29,7 +29,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Axios from "axios";
 
-import "./assets/css/style.css";
 import HomePage from './pages/Home'
 import SearchResult from './pages/SearchResult'
 import HomestayDetail from './pages/HomestayDetail'
