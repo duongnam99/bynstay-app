@@ -23,7 +23,7 @@ const SearchResult = () => {
             <MainSearch />
 
             <div class="container mt-5">
-                <TitleBookingResult className="mb-3" />
+                <TitleBookingResult />
                 <div class="row">
                     <div class="col-md-3">
                         <FilterBookingResult />
@@ -37,7 +37,7 @@ const SearchResult = () => {
                         <ItemsBookingResult />
                         <ItemsBookingResult />
 
-                        <Pagination className="mt-5" />
+                        <Pagination />
 
                         {/* <NotFoundBookingResult class="mt-5" /> */}
                     </div>
