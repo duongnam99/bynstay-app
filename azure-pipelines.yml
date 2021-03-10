@@ -7,8 +7,7 @@ trigger:
   - master
 
 variables:
-  uiSource: "ui"
-  uiBuild: "$(uiSource)/build"
+  uiBuild: "/build"
 
 pool:
   vmthumbnail: "ubuntu-latest"
@@ -20,7 +19,6 @@ steps:
     displayName: "Install Node.js"
 
   - script: |
-      pushd $(uiSource)
       npm install
       npm run build
       popd
