@@ -23,6 +23,7 @@ const BuyTikcetDetail = () => {
             </div>
         </div>
         <div class="booking" style={{display: "none"}}>
+        {/* <div class="booking"> */}
             <div class="box">
                 <div class="tit">Ngày tham quan</div>
                 <div class="input-date ipt del">

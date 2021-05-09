@@ -18,17 +18,17 @@ const Banner = () => {
                         <div class="js-carousel" data-items="2" data-dots="false" data-margin="24" data-loop="true">
                             <div class="banner-item">
                                 <a href="#">
-                                    <img src="./assets/images//Bitmap.png" alt="" />
+                                    <img src="/assets/images//Bitmap.png" alt="" />
                                 </a>
                             </div>
                             <div class="banner-item">
                                 <a href="#">
-                                    <img src="./assets/images/Bitmap1.png" alt="" />
+                                    <img src="/assets/images/Bitmap1.png" alt="" />
                                 </a>
                             </div>
                             <div class="banner-item">
                                 <a href="#">
-                                    <img src="./assets/images/Bitmap.png" alt="" />
+                                    <img src="/assets/images/Bitmap.png" alt="" />
                                 </a>
                             </div>
                         </div>

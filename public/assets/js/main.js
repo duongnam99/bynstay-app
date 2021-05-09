@@ -121,8 +121,6 @@ $(window).bind('load', function () {
         }
     });
 
-
-
     dateConvert = function(date, today){
         if(date) {
             date = date.split('/');
@@ -207,12 +205,15 @@ $(window).bind('load', function () {
     var altFormat_2 = 'd/m/Y';
 
     $(".js-date_act").flatpickr({
+        mode: "range",
         altFormat: format_2,
         dateFormat: altFormat_2,
         showMonths: 2,
         locale: "vn",
         minDate: "today",
         onClose: function (selectedDates, dateStr, instance) {
+            console.log(selectedDates);
+            document.getElementsByClassName('js-date_act').value = $('.js-date_act').val();
             console.log($('.js-date_act').val());
         }
     });
