@@ -13,16 +13,18 @@ import PriceDetail from '../detail/PriceDetail';
 const Detail = () => {
     let { path, url } = useRouteMatch();
     const { id } = useParams();
-    console.log(id);
     const [hsId, setHsId] = useState(1)
+    let hs = {
+        'id': id
+    }
     return (
         <>
             <div class="container mt-3 hotel_activity_search_detail">
                 <BreadCrumb />
-                <DetailCommomInfo {...id}/>
+                <DetailCommomInfo {...hs}/>
                 <DesDetail />
-                <PriceDetail {...id}/>
-                <ConditionDetail {...id}/>
+                <PriceDetail {...hs}/>
+                <ConditionDetail {...hs}/>
             </div>
         </>
     );

@@ -1,6 +1,5 @@
 import React, {Component, useState, useEffect } from 'react';
-import Axios from "axios";
-import { stringify } from "querystring";
+import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -18,7 +17,7 @@ const Header = () => {
                 </div>
                 <div class="menu_top">
                     <ul class="main-menu">
-                        <li class="menu-item">
+                        {/* <li class="menu-item">
                             <a href="">
                                <i class="material-icons">whatshot</i>
                                 Ưu đãi
@@ -29,7 +28,7 @@ const Header = () => {
                                 <i class="material-icons">email</i>
                                 Tin nhắn
                             </a>
-                        </li>
+                        </li> */}
                         <li class="menu-item">
                             <a href="">
                                 <i class="material-icons">chrome_reader_mode</i>
@@ -45,11 +44,11 @@ const Header = () => {
                                     VND
                                 </a>
                             </li>
-                            <li>
+                            {/* <li>
                                 <a href="javascript:;" class="currency-item ic_dola">
                                     USD
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>
@@ -79,18 +78,19 @@ const Header = () => {
             <div class="container">
                 <ul class="main-menu">
                     <li class="menu-item">
+                        <Link className="wrap-img" to={{ pathname: `/list-hs` }}>
+                            <i class="material-icons location_city">location_city</i>
+                            Homestay
+                        </Link>
+                    </li>
+                    <li class="menu-item">
                         <a href="#">
                             <i class="material-icons flight">flight</i>
                             Địa điểm
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="#">
-                            <i class="material-icons location_city">location_city</i>
-                            Homestay
-                        </a>
-                    </li>
-                    <li class="menu-item">
+               
+                    {/* <li class="menu-item">
                         <a href="#">
                             <span class="dub-ic">
                                 <i class="material-icons hotel">hotel</i>
@@ -98,7 +98,7 @@ const Header = () => {
                             </span>
                             Gợi ý khám phá
                         </a>
-                    </li>
+                    </li> */}
                     <li class="menu-item">
                         <a href="#">
                             <i class="material-icons local_activity">local_activity</i>

@@ -43,7 +43,7 @@ const Order = props => {
                     hs_id: id,
                 }
                 localStorage.setItem('customer', JSON.stringify(customer));
-                // localStorage.setItem('order', JSON.stringify(order));
+                localStorage.setItem('order', JSON.stringify(order));
                 history.push({
                     pathname: `${url}/paymethod`,
                     // search: '?query=abc',

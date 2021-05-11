@@ -5,10 +5,11 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/dark.css";
 
 const PriceDetail = props => {
+    const [hsIdState, setHsIdState] = useState(props);
+
     let { path, url } = useRouteMatch();
     const history = useHistory();
 
-    const [hsIdState, setHsIdState] = useState(props);
     const [price, setPrice] = useState([]);
     const [date, setDate] = useState('');
     const [fromDate, setFromDate] = useState(new Date());
@@ -35,7 +36,7 @@ const PriceDetail = props => {
         let to = new Date(dates[1])
         let range = Math.abs(to - from);
 
-        range = range / 86400000;
+        range = range / 86400000 + 1;
         if(range > price.max_night)
         {
             alert("Vượt quá số ngày lớn nhất: " + price.max_night + ' ngày');
@@ -57,10 +58,10 @@ const PriceDetail = props => {
     }
 
     useEffect(() => {
-        homestayService.getHsPrice(hsIdState[0]).then((response) => {
+        homestayService.getHsPrice(hsIdState['id']).then((response) => {
             setPrice(response.data)
         })
-        homestayService.getHsOrderedTime(hsIdState[0]).then((response) => {
+        homestayService.getHsOrderedTime(hsIdState['id']).then((response) => {
             setOrderedTime(response.data.range)
             setIsLoadedTime(true);
             console.log(response.data);

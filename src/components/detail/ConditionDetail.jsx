@@ -8,7 +8,7 @@ const ConditionDetail = props => {
     const [polices, setPolicies] = useState([]);
 
     useEffect(() => {
-        homestayService.getHsPolicy(hsIdState[0]).then((response) => {
+        homestayService.getHsPolicy(hsIdState['id']).then((response) => {
             setPolicies(response.data)
         })
 

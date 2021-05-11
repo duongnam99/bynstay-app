@@ -1,5 +1,4 @@
 import React, {Component, useState, useEffect, useRef } from 'react';
-import Axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -7,30 +6,30 @@ import {homestayService} from '../../services/homestay.service'
 
 
 const DetailCommomInfo = props => {
+    const [hsIdState, setHsIdState] = useState(props);
     const [nav1, setNav1] = useState();
     const [nav2, setNav2] = useState();
-    const [hsIdState, setHsIdState] = useState(props);
     const [images, setImages] = useState([]);
     const [hs, setHs] = useState([]);
     const [hsType, setHsType] = useState([]);
     const [utility, setUtility] = useState([]);
     const [price, setPrice] = useState([]);
-
+    
     useEffect(() => {
-        homestayService.getHsImage(hsIdState[0]).then((response) => {
+        homestayService.getHsImage(hsIdState['id']).then((response) => {
             setImages(response.data)
         })
-        homestayService.getHomestay(hsIdState[0]).then((response) => {
+        homestayService.getHomestay(hsIdState['id']).then((response) => {
             setHs(response.data)
         })
-        homestayService.getHomestayType(hsIdState[0]).then((response) => {
+        homestayService.getHomestayType(hsIdState['id']).then((response) => {
             setHsType(response.data)
         })
     
-        homestayService.getHsUtil(hsIdState[0]).then((response) => {
+        homestayService.getHsUtil(hsIdState['id']).then((response) => {
             setUtility(response.data)
         })
-        homestayService.getHsPrice(hsIdState[0]).then((response) => {
+        homestayService.getHsPrice(hsIdState['id']).then((response) => {
             setPrice(response.data)
         })
     }, [])

@@ -16184,7 +16184,7 @@ header .header-top .menu_top .select-currency .currency-show {
   cursor: pointer;
 }
 
-header .header-top .menu_top .select-currency .currency-show::after {
+/* header .header-top .menu_top .select-currency .currency-show::after {
   content: "\f107";
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -16193,7 +16193,7 @@ header .header-top .menu_top .select-currency .currency-show::after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
-}
+} */
 
 header .header-top .menu_top .select-currency .ic_dola, header .header-top .menu_top .select-currency .ic_vnd {
   position: relative;
@@ -16527,7 +16527,7 @@ header .primery-menu .main-menu .menu-item a .dub-ic .flight {
 }
 
 .search_home .tab_main .tab-hotel .input-address .list-return {
-  display: none;
+  /* display: none; */
   position: absolute;
   z-index: 11;
   background: #fff;
@@ -16681,7 +16681,7 @@ header .primery-menu .main-menu .menu-item a .dub-ic .flight {
   height: 24px;
 }
 
-.search_home .tab_main .tab-hotel .input-count > a {
+.search_home .tab_main .tab-hotel .input-count > input {
   border-radius: 4px;
   border: solid 1px #d8dbe2;
   background-color: #ffffff;
@@ -19091,4 +19091,13 @@ header .primery-menu .main-menu .menu-item a .dub-ic .flight {
 
 .act_book_ticket_form .contact .wrap{
   justify-content: space-between;
+}
+.banner_home .slick-slide {
+  margin: 10px;
+}
+.banner_home .slick-track {
+  display: flex;
+}
+.banner_home .slick-slide img {
+  max-width: 100%;
 }

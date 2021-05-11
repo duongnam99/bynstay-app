@@ -28,7 +28,7 @@ const HomestayDetail = () => {
                 <Route exact path={`${path}` + '/order'} component={Order} />
                 <Route exact path={`${path}` + '/order/paymethod'} component={OrderPaymethod} />
                 <Route exact path={`${path}` + '/order/result'} component={OrderResult} />
-                <Route path={`${path}`} component={Detail} />
+                <Route exact path={`${path}`} component={Detail} />
             </Switch>
             <Footer />
         </>

@@ -8,8 +8,22 @@ import Banner from '../components/banners/Banner'
 import MainSearch from '../components/search/MainSearch'
 import ItemBooking1 from '../components/items/ItemBooking1'
 import ItemBooking2 from '../components/items/ItemBooking2'
+import {homestayService} from '../services/homestay.service'
 
 const HomePage = () => {
+    const [hs, setHs] = useState([]);
+    const [places, setPlaces] = useState([]);
+
+    useEffect(() => {
+        homestayService.getRecommendedHs().then((response) => {
+            setHs(response.data.homestay)
+        })
+  
+        homestayService.getSuggestedPlaces().then((response) => {
+            setPlaces(response.data)
+        })
+  
+    }, [])
 
     return (
         <>
@@ -20,47 +34,22 @@ const HomePage = () => {
             <div class="container list_item_booking_1 mt-5">
             <div class="title text-center">Điểm đến phổ biến</div>
             <div class="row">
+                {places.map((item, i) =>
                 <div class="col-md-3 col-sm-6">
-                    <ItemBooking1 />
+                    <ItemBooking1 {...item}/>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <ItemBooking1 />
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <ItemBooking1 />
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <ItemBooking1 />
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <ItemBooking1 />
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <ItemBooking1 />
-                </div>
+                )}
+              
             </div>
         </div>
         <div class="container list_item_booking_2 mt-5">
-            <div class="title text-center">Điểm đến phổ biến</div>
+            <div class="title text-center">Homestay gợi ý</div>
             <div class="row">
+            {hs.map((item, i) =>
                 <div class="col-md-4">
-                    <ItemBooking2 />
+                    <ItemBooking2 {...item}/>
                 </div>
-                <div class="col-md-4">
-                    <ItemBooking2 />
-                </div>
-                <div class="col-md-4">
-                    <ItemBooking2 />                    
-                </div>
-                <div class="col-md-4">
-                    <ItemBooking2 />
-                </div>
-                <div class="col-md-4">
-                    <ItemBooking2 />
-                </div>
-                <div class="col-md-4">
-                    <ItemBooking2 />
-                </div>
+            )}
             </div>
         </div>
 
