@@ -2,11 +2,18 @@ import React, {Component, useState, useEffect } from 'react';
 import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
 
 const Header = () => {
-
+    const openMobileNav = event => {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    const closeMobileNav = event => {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    
     return (
-        <header>
+    <header>
         <div class="container header-top">
-            <div class="d-flex align-items-center">
+            <div class="d-md-flex align-items-center">
                 <div class="menu_mobile d-block d-md-none">
 
                 </div>
@@ -77,6 +84,10 @@ const Header = () => {
         <div class="primery-menu">
             <div class="container">
                 <ul class="main-menu">
+                    <a href="#" className="hum_nav">
+                        <span onClick={openMobileNav}>&#9776;</span>
+                    </a>
+               
                     <li class="menu-item">
                         <Link className="wrap-img" to={{ pathname: `/list-hs` }}>
                             <i class="material-icons location_city">location_city</i>
@@ -102,11 +113,48 @@ const Header = () => {
                     <li class="menu-item">
                         <a href="#">
                             <i class="material-icons local_activity">local_activity</i>
-                            Homestay đứng top
+                            Top homestay 
                         </a>
                     </li>
                 </ul>
             </div>
+        </div>
+    
+        <div id="mySidenav"  class="sidenav d-md-none">
+            <a href="javascript:void(0)" onClick={closeMobileNav} class="closebtn" onclick="closeNav()">&times;</a>
+            <Link className="wrap-img" to={{ pathname: `/list-hs` }}>
+                <i class="material-icons location_city">location_city</i>
+                Homestay
+            </Link>
+            <a href="#">
+                <i class="material-icons flight">flight</i>
+                Địa điểm
+            </a>
+            <a href="#">
+                <i class="material-icons local_activity">local_activity</i>
+                Homestay đứng top
+            </a>
+            <a href="">
+                <i class="material-icons">chrome_reader_mode</i>
+                Lịch đặt của tôi 
+            </a>
+            <div class="menu_top">
+                   
+                </div>
+                <div class="user_head">
+                    <ul class="link_user">
+                        <li class="login">
+                            <a href="#">
+                                Đăng nhập
+                            </a>
+                        </li>
+                        <li class="regiter">
+                            <a href="#">
+                                Đăng ký
+                            </a>
+                        </li>
+                    </ul>
+                </div>
         </div>
     </header>
     );

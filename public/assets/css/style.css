@@ -5478,14 +5478,11 @@ html {
 }
 
 .d-flex, .page_404, header .header-top .menu_top, header .header-top .menu_top .main-menu, header .header-top .user_head .link_user, header .primery-menu .main-menu, .search_home .tab_control .list-tab, .search_home .tab_main .tab-hotel .input-count .select_count .select-item, .item_booking_result .block-main, .item_booking_result .block-main .box, .item_booking_result .more .line, .filter_booking_result .filter .tit, .filter_booking_result .filter .box-slider .wrap-bl-pr, .title_booking_result .wrap, .act_search_detail_demo .info, .act_search_detail_demo .utility .list, .act_buy_ticket .info, .act_buy_ticket .booking .wrap-btn, .act_buy_ticket .ipt .select-cus .select-item, .act_buy_ticket .input-people .select-item .block, .not_found_act_search, .act_book_form_ticket .contact .wrap, .act_book_form_ticket .detail .box .line, .act_book_form_ticket .detail .checkout, .act_book_form_ticket .final, .act_ticket_box .med, .act_ticket_box .box .line, .act_book_confirm_ticket .code, .act_book_confirm_ticket .confirm .box .line, .list_deal_act .title {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
+  /* display: flex !important; */
+  display: flex;
 }
 
 .d-inline-flex, .pagination_cus a, .pagination_cus .spec, .act_buy_ticket .input-people .select-item .block-2 {
-  display: -webkit-inline-box !important;
-  display: -ms-inline-flexbox !important;
   display: inline-flex !important;
 }
 
@@ -13093,15 +13090,7 @@ button.bg-dark:focus {
   display: table-cell !important;
 }
 
-.d-flex, .page_404, header .header-top .menu_top, header .header-top .menu_top .main-menu, header .header-top .user_head .link_user, header .primery-menu .main-menu, .search_home .tab_control .list-tab, .search_home .tab_main .tab-hotel .input-count .select_count .select-item, .item_booking_result .block-main, .item_booking_result .block-main .box, .item_booking_result .more .line, .filter_booking_result .filter .tit, .filter_booking_result .filter .box-slider .wrap-bl-pr, .title_booking_result .wrap, .act_search_detail_demo .info, .act_search_detail_demo .utility .list, .act_buy_ticket .info, .act_buy_ticket .booking .wrap-btn, .act_buy_ticket .ipt .select-cus .select-item, .act_buy_ticket .input-people .select-item .block, .not_found_act_search, .act_book_form_ticket .contact .wrap, .act_book_form_ticket .detail .box .line, .act_book_form_ticket .detail .checkout, .act_book_form_ticket .final, .act_ticket_box .med, .act_ticket_box .box .line, .act_book_confirm_ticket .code, .act_book_confirm_ticket .confirm .box .line, .list_deal_act .title {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-}
-
 .d-inline-flex, .pagination_cus a, .pagination_cus .spec, .act_buy_ticket .input-people .select-item .block-2 {
-  display: -webkit-inline-box !important;
-  display: -ms-inline-flexbox !important;
   display: inline-flex !important;
 }
 
@@ -19101,3 +19090,86 @@ header .primery-menu .main-menu .menu-item a .dub-ic .flight {
 .banner_home .slick-slide img {
   max-width: 100%;
 }
+header .hum_nav {
+  display: none;
+}
+
+
+
+
+
+
+
+@media only screen and (max-width: 992px) {
+  .banner_home .slider-content {
+    width: 100%;
+  }
+  header .header-top .menu_top {
+    display: none!important;
+  }
+  header .header-top .user_head {
+    display: none!important;
+  }
+  header .menu-item {
+    display: none!important;
+  }
+  header .hum_nav {
+    display: block!important;
+    font-size: 22px;
+  }
+  /* header .main-menu.hum_nav {
+    display: block!important;
+  } */
+  /* The side navigation menu */
+  header .sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #ecedf1; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+
+  /* The navigation menu links */
+  header .sidenav a {
+    padding: 8px 8px 8px 18px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #29256a;
+    display: block;
+    transition: 0.3s;
+    display: inline-flex;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  header .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  /* Position and style the close button (top right corner) */
+  header .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  header .sidenav .a i {
+    margin-right: 6px;
+  }
+
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  header #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+
+}
+
+

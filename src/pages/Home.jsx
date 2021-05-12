@@ -35,7 +35,7 @@ const HomePage = () => {
             <div class="title text-center">Điểm đến phổ biến</div>
             <div class="row">
                 {places.map((item, i) =>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-6">
                     <ItemBooking1 {...item}/>
                 </div>
                 )}
@@ -46,7 +46,7 @@ const HomePage = () => {
             <div class="title text-center">Homestay gợi ý</div>
             <div class="row">
             {hs.map((item, i) =>
-                <div class="col-md-4">
+                <div class="col-md-4 col-6">
                     <ItemBooking2 {...item}/>
                 </div>
             )}
