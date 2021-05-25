@@ -1,7 +1,16 @@
 import React, {Component, useState, useEffect } from 'react';
 import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
+import AuthBox from './AuthBox';
+import {userService} from '../../services/user.service';
+
 
 const Header = () => {
+    let { path, url } = useRouteMatch();
+
+    let [openAuth, setOpenAuth] = useState(false);
+    let [isRegis, setIsRegis] = useState(false);
+    let [user, setUser] = useState({});
+
     const openMobileNav = event => {
         document.getElementById("mySidenav").style.width = "250px";
     }
@@ -9,7 +18,30 @@ const Header = () => {
     const closeMobileNav = event => {
         document.getElementById("mySidenav").style.width = "0";
     }
+
+    const openAuthBox = event => {
+        setOpenAuth(!openAuth);
+        setIsRegis(false);
+    }
     
+    const logout = event => {
+        userService.logout();
+        window.location.reload();
+    }
+    
+    const openAuthBoxRegis = event => {
+        setOpenAuth(!openAuth);
+        setIsRegis(true);
+    }
+    useEffect(() => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        console.log(user)
+        if (user != null) {
+            setUser(user)
+        }
+        
+    }, [])
+
     return (
     <header>
         <div class="container header-top">
@@ -36,12 +68,15 @@ const Header = () => {
                                 Tin nhắn
                             </a>
                         </li> */}
+                        { Object.keys(user).length > 0 ? 
                         <li class="menu-item">
                             <a href="">
                                 <i class="material-icons">chrome_reader_mode</i>
                                 Lịch đặt của tôi 
                             </a>
                         </li>
+                        : ''
+                        }
                     </ul>
                     <div class="select-currency">
                         <span class="currency-show ic_vnd">VND</span>
@@ -51,32 +86,41 @@ const Header = () => {
                                     VND
                                 </a>
                             </li>
-                            {/* <li>
-                                <a href="javascript:;" class="currency-item ic_dola">
-                                    USD
-                                </a>
-                            </li> */}
+                    
                         </ul>
                     </div>
                 </div>
                 <div class="user_head">
-                    <div class="d-block d-md-none">
+                    { Object.keys(user).length > 0 ? 
+                    <>
+                    <div class="d-block">
                         <a href="javascript:;">
-
+                        <NavLink className="wrap_uh" to={`${url}/user`}>
+                            <span>{user.name}</span>
+                            <img src={ user.avatar != null ? user.avatar : '/assets/images/avatar_def.png'} alt=""/>
+                        </NavLink>
                         </a>
                     </div>
+                     <li class="regiter">
+                        <a onClick={logout} href="javascript:void(0)">
+                            Đăng xuất
+                        </a>
+                    </li>
+                 </>
+                    :
                     <ul class="link_user">
                         <li class="login">
-                            <a href="#">
+                            <a onClick={openAuthBox} href="javascript:void(0)">
                                 Đăng nhập
                             </a>
                         </li>
                         <li class="regiter">
-                            <a href="#">
+                            <a onClick={openAuthBoxRegis} href="javascript:void(0)">
                                 Đăng ký
                             </a>
                         </li>
                     </ul>
+                    }
                 </div>
             </div>
         </div>
@@ -144,18 +188,19 @@ const Header = () => {
                 <div class="user_head">
                     <ul class="link_user">
                         <li class="login">
-                            <a href="#">
+                            <a onClick={openAuthBox} href="javascript:void(0)">
                                 Đăng nhập
                             </a>
                         </li>
                         <li class="regiter">
-                            <a href="#">
+                            <a onClick={openAuthBox} href="javascript:void(0)">
                                 Đăng ký
                             </a>
                         </li>
                     </ul>
                 </div>
         </div>
+       {openAuth ? <AuthBox onClick={openAuthBox} openAuth={openAuth} isRegis={isRegis}></AuthBox> : ''}
     </header>
     );
   };

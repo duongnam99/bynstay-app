@@ -22,7 +22,7 @@ const Detail = () => {
             <div class="container mt-3 hotel_activity_search_detail">
                 <BreadCrumb />
                 <DetailCommomInfo {...hs}/>
-                <DesDetail />
+                {/* <DesDetail /> */}
                 <PriceDetail {...hs}/>
                 <ConditionDetail {...hs}/>
             </div>

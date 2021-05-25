@@ -95,8 +95,6 @@ const DetailCommomInfo = props => {
                 <h5 className="util_line">{i}</h5>
                 {utility[i].map((item, i) => <div><span>{item.name}</span></div> )}
             </div> )}
-
-                {/* {utility.map((item,i) => <div><span>{item.name}</span></div> )} */}
             </div>
         </div>
        
@@ -107,6 +105,13 @@ const DetailCommomInfo = props => {
             <div class="mapouter_wrap" dangerouslySetInnerHTML={{__html: hs.google_map}} />
             <p className="mt-3">Bạn sẽ nhận được địa chỉ chính xác của chỗ ở sau khi hoàn tất đơn đặt phòng.</p>
        
+        </div>
+
+        <div class="act_des">
+          <div class="tit">Mô tả</div>
+            <div class="des">
+                {hs.des}
+            </div>
         </div>
         </>
     );

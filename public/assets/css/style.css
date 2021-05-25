@@ -19094,11 +19094,78 @@ header .hum_nav {
   display: none;
 }
 
+/* The Modal (background) */
+.modal_custom {
+  /* display: none;  */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+.modal_custom .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+}
 
+.modal_custom .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: right;
+}
 
+.modal_custom .close:hover,
+.modal_custom .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-
+.box input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border-color: #d8dbe2;
+  border: 1px solid #d8dbe2;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #232731;
+  outline: none;
+}
+.modal_custom .sm-tit {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.modal_custom .box {
+  margin-bottom: 15px;
+}
+.modal_custom a.submit {
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+  padding: 11px 34px;
+  border-radius: 4px;
+  background-color: #bf2d69;
+}
+.modal_custom .bt_line {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+.modal_custom h3 {
+  text-align: center;
+}
 
 @media only screen and (max-width: 992px) {
   .banner_home .slider-content {

@@ -3,7 +3,6 @@ import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, use
 
 import {homestayService} from '../../services/homestay.service'
 
-
 const OrderPaymethod = props => {
     const history = useHistory();
     let { path, url } = useRouteMatch();
