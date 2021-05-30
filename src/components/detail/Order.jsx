@@ -15,6 +15,7 @@ const Order = props => {
     const {from, to, numGuess, fee, numNight} = props.location.state
     const [isValidateError, setValidateError] = useState(false)
     const [validatorMes, setValidatorMes] = useState([])
+    const [user, setUser] = useState({});
 
     const saveOrderAndCheckout = event => {
         let data = {
@@ -69,6 +70,12 @@ const Order = props => {
         homestayService.getHomestay(id).then((response) => {
             setHs(response.data)
         })
+        let userData = JSON.parse(localStorage.getItem('user'));
+        setUser(userData);
+        if (userData != null) {
+            setCsEmail(userData.email)
+            // setCsPhone(userData.phone)
+        }
     }, [])
 
     return (
@@ -112,13 +119,13 @@ const Order = props => {
                             <div class={"box box_1 " + (isValidateError && validatorMes.customer_email ? 'wr' : '')}>
                                 <div class="sm-tit">Email</div>
                                 <span class={"st " + (isValidateError && validatorMes.customer_email ? 'visible' : 'invisible')}>*{validatorMes.customer_email}</span>
-                                <input type="email" placeholder="exmaple@gmail.com" onChange={handleChangeEmail} />
+                                <input type="email" placeholder="exmaple@gmail.com" value={csEmail} onChange={handleChangeEmail} />
                                 <span class="dt">Quý khách lưu ý nhận mã đặt phòng qua email</span>
                             </div>
                             <div class={"box box_2 " + (isValidateError && validatorMes.customer_phone ? 'wr' : '')}>
                                 <div class="sm-tit">Số di động</div>
                                 <span class={"st " + (isValidateError && validatorMes.customer_phone ? 'visible' : 'invisible')}>*{validatorMes.customer_phone}</span>
-                                <input type="text" placeholder="0968686868" onChange={handleChangePhone} />
+                                <input type="text" placeholder="0968686868" value={csPhone} onChange={handleChangePhone} />
                                 <span class="dt">VD: 0968686868</span>
                             </div>
                         </div>

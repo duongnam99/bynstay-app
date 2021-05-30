@@ -20,7 +20,7 @@ const Detail = () => {
     return (
         <>
             <div class="container mt-3 hotel_activity_search_detail">
-                <BreadCrumb />
+                {/* <BreadCrumb /> */}
                 <DetailCommomInfo {...hs}/>
                 {/* <DesDetail /> */}
                 <PriceDetail {...hs}/>

@@ -1,15 +1,18 @@
 import Axios from "axios";
+import authHeader from '../helpers/auth-header';
 
 export const userService = {
     login,
     logout,
     register,
-    updatePassword
+    updatePassword,
+    updateInfo,
+    getOrder
 };
 
 const config = {headers: {'content-type': 'application/json'}};
 
-function login(email, password) {
+async function login(email, password) {
     const config = {headers: {'content-type': 'application/x-www-form-urlencoded'}};
     const formData = new FormData();
     formData.append('email', email);
@@ -19,15 +22,15 @@ function login(email, password) {
         .then(user => {
             localStorage.setItem('user', JSON.stringify(user.data.user));
             localStorage.setItem('auth-token', user.data.token);
-
-            return user;
+        
+            return user.data.user;
         });
 }
+
 function logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('auth-token');
 }
-
 
 function register(user) {
     const config = {headers: {'content-type': 'application/x-www-form-urlencoded'}};
@@ -48,8 +51,13 @@ function register(user) {
         });
 
 }
+
+const permissionConfig = {
+    headers: authHeader()
+};
+
+
 function updatePassword(user) {
-    const config = {headers: {'content-type': 'application/x-www-form-urlencoded'}};
 
     let postData = {
         name: user.name,
@@ -58,5 +66,19 @@ function updatePassword(user) {
         new_password: user.new_password,
         new_cf_password: user.new_cf_password,
     }
-    return Axios.put(process.env.REACT_APP_BASE_API_URL + 'api/update-pw/', postData);
+    return Axios.put(process.env.REACT_APP_BASE_API_URL + 'api/update-pw', postData, permissionConfig);
+}
+
+function updateInfo(formData) {
+
+    return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/user/edit', formData, permissionConfig);
+}
+
+function getOrder(email) {
+    let params = {
+        'email': email
+    }
+    let config = {...{ params: params}, ...permissionConfig};
+
+    return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/my-order', config);
 }

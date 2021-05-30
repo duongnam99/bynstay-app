@@ -1,11 +1,12 @@
-import React, {Component, useState, useEffect } from 'react';
+import React, {Component, useState, useEffect, useContext } from 'react';
 import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
 import AuthBox from './AuthBox';
 import {userService} from '../../services/user.service';
-
+import UserContext from '../../context/userContext';
 
 const Header = () => {
     let { path, url } = useRouteMatch();
+    // const { user, setUser } = useContext(UserContext);
 
     let [openAuth, setOpenAuth] = useState(false);
     let [isRegis, setIsRegis] = useState(false);
@@ -34,12 +35,8 @@ const Header = () => {
         setIsRegis(true);
     }
     useEffect(() => {
-        let user = JSON.parse(localStorage.getItem('user'));
-        console.log(user)
-        if (user != null) {
-            setUser(user)
-        }
-        
+        setUser(JSON.parse(localStorage.getItem('user')));
+        console.log(url)
     }, [])
 
     return (
@@ -68,7 +65,7 @@ const Header = () => {
                                 Tin nhắn
                             </a>
                         </li> */}
-                        { Object.keys(user).length > 0 ? 
+                        { user != null ? 
                         <li class="menu-item">
                             <a href="">
                                 <i class="material-icons">chrome_reader_mode</i>
@@ -91,15 +88,17 @@ const Header = () => {
                     </div>
                 </div>
                 <div class="user_head">
-                    { Object.keys(user).length > 0 ? 
+                    {/* { Object.keys(user).length > 0 ?  */}
+                    { user != null ? 
                     <>
                     <div class="d-block">
-                        <a href="javascript:;">
-                        <NavLink className="wrap_uh" to={`${url}/user`}>
+                        <NavLink className="wrap_uh" to={`/user`}>
+                            <div className="wrap-img">
+                            <img src={ user.avatar != null ? process.env.REACT_APP_BASE_API_URL + 'uploads/' + user.avatar : '/assets/images/avatar_def.png'} alt=""/>
+                            </div>
                             <span>{user.name}</span>
-                            <img src={ user.avatar != null ? user.avatar : '/assets/images/avatar_def.png'} alt=""/>
+
                         </NavLink>
-                        </a>
                     </div>
                      <li class="regiter">
                         <a onClick={logout} href="javascript:void(0)">

@@ -19240,3 +19240,158 @@ header .hum_nav {
 }
 
 
+.validator_error{
+  color: #c31919;
+  font-size: 13px;
+}
+.login_error{
+  color: #c31919;
+  font-size: 13px;
+}
+
+.user_head {
+  display: flex;
+  align-items: center;
+}
+.user_head div{
+  margin-right: 10px;
+}
+.user_head a{
+  display: inline-flex;
+  color: #333;
+  align-items: center;
+  font-weight: 700;
+}
+.user_head a .wrap-img{
+  width: 36px;
+  position: relative;
+  height: 36px;
+}
+.user_head a .wrap-img img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  position: absolute;
+}
+.user_head .regiter a{
+    border-radius: 4px;
+    background-color: #bf2d69;
+    padding: 6px 15px;
+    font-weight: 500;
+    color: #ffffff;
+    border: none;
+}
+
+.navigation_home i {
+  font-size: 18px;
+}
+.navigation_home a {
+  margin-bottom: 0!important;
+}
+
+.sidebar{
+  padding: 10px;
+  width: 100%;
+  display: block;
+  color: #222222;
+  font-size: 18px;
+}
+
+.sidebar li a{
+  color: #222222;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+}
+.sidebar li a i{
+  padding-right: 10px;
+}
+.sidebar li a.active{
+  color: #ffffff;
+  width: 100%;
+  margin-bottom: 10px;
+  background-image: linear-gradient(to right, #29256a, #c75f8a);
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.Toastify__toast-container {
+  width: 320px;
+}
+.Toastify__toast--default {
+    background: #fff;
+    color: #aaa;
+ }
+  .Toastify__toast--info {
+    background: #3498db!important;
+ }
+  .Toastify__toast--success {
+    background: #bf2d69!important;
+ }
+  .Toastify__toast--warning {
+    background: #f1c40f!important;
+ }
+  .Toastify__toast--error {
+    background: #e74c3c!important;
+ }
+
+ .wrap-box {
+   display: flex;
+   justify-content: space-between;
+ }
+
+ .wrap-box .box{
+  flex: 1;
+  padding: 0 7px;
+}
+ .wrap-box{
+  margin: 0 -7px;
+}
+ .change_pass .wrap-box .box{
+  /* flex: 0 0 49%; */
+}
+.cs_main_button {
+  border-radius: 4px;
+  background-color: #bf2d69;
+  padding: 6px 15px;
+  font-weight: 500;
+  color: #ffffff;
+  border: none;
+  transition: 0.2s;
+}
+
+.cs_main_button:hover{
+  cursor: pointer;
+  background-color: #6b3e79;
+}
+.dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-width: 2;
+  border-radius: 2;
+  border-color: #eeeeee;
+  border-style: dashed;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  outline: none;
+  transition: border .24s ease-in-out;
+}
+
+.my_order .item_booking_result .box .line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.my_order .item_booking_result .block-main .info {
+  flex: 0 0 40%;
+}
+
+.my_order .item_booking_result .block-main .box {
+  flex: 0 0 36%;
+}
