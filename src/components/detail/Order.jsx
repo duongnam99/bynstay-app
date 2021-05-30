@@ -74,7 +74,7 @@ const Order = props => {
         setUser(userData);
         if (userData != null) {
             setCsEmail(userData.email)
-            // setCsPhone(userData.phone)
+            setCsPhone(userData.phone)
         }
     }, [])
 

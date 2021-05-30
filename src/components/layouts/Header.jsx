@@ -2,7 +2,6 @@ import React, {Component, useState, useEffect, useContext } from 'react';
 import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
 import AuthBox from './AuthBox';
 import {userService} from '../../services/user.service';
-import UserContext from '../../context/userContext';
 
 const Header = () => {
     let { path, url } = useRouteMatch();
@@ -92,7 +91,7 @@ const Header = () => {
                     { user != null ? 
                     <>
                     <div class="d-block">
-                        <NavLink className="wrap_uh" to={`/user`}>
+                        <NavLink className="wrap_uh" to={`/user/wishlist`}>
                             <div className="wrap-img">
                             <img src={ user.avatar != null ? process.env.REACT_APP_BASE_API_URL + 'uploads/' + user.avatar : '/assets/images/avatar_def.png'} alt=""/>
                             </div>

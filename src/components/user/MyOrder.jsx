@@ -66,7 +66,7 @@ const MyOrder = () => {
     return (
         <div className="my_order">
             {homestays.map((item, i) =>
-                <div class="item_booking_result">
+                <div class="item_booking_result mt-3">
                 <div class="block-main">
                     <a class="wrap" target="_blank" href="home-detail/25">
                         <div class="wrap-img"><img src={ process.env.REACT_APP_BASE_API_URL + 'uploads/' + (item.homestay.images.length > 0 ? item.homestay.images[0].image : '')} alt="" />

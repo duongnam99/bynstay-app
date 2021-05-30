@@ -7,7 +7,11 @@ export const userService = {
     register,
     updatePassword,
     updateInfo,
-    getOrder
+    getOrder,
+    getWishListHs,
+    deleteWish,
+    checkWished,
+    addToWish
 };
 
 const config = {headers: {'content-type': 'application/json'}};
@@ -81,4 +85,24 @@ function getOrder(email) {
     let config = {...{ params: params}, ...permissionConfig};
 
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/my-order', config);
+}
+
+function getWishListHs() {
+
+    return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/wishlist-hs', permissionConfig);
+}
+
+function deleteWish(hsId) {
+    return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/del-wishlist-hs/' + hsId, permissionConfig);
+}
+
+function checkWished(hsId) {
+    return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/check-wished/' + hsId, permissionConfig);
+}
+
+function addToWish(hsId) {
+    let postData = {
+        homestay_id: hsId,
+    }
+    return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/cus/wishlist', postData, permissionConfig);
 }

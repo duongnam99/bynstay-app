@@ -19341,6 +19341,7 @@ header .hum_nav {
  .wrap-box {
    display: flex;
    justify-content: space-between;
+   flex-wrap: wrap;
  }
 
  .wrap-box .box{
@@ -19394,4 +19395,35 @@ header .hum_nav {
 
 .my_order .item_booking_result .block-main .box {
   flex: 0 0 36%;
+}
+
+.wishlist .item_booking_result .wrap-img{
+  padding-bottom: 75%;
+}
+
+.wishlist .item_booking_result i:hover{
+  cursor: pointer;
+}
+.add_favorite .count{
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.add_favorite i.active{
+  color: #FFC938;
+}
+.add_favorite i{
+  color: #888;
+  vertical-align: bottom;
+}
+
+.add_favorite:hover{
+  cursor: pointer;
+}
+.add_favorite:hover i{
+  color: #FFC938;
+}
+.box_full {
+  flex: 0 0 100%!important;
+  margin-bottom: 15px;
 }

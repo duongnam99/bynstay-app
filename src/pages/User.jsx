@@ -9,6 +9,7 @@ import {homestayService} from '../services/homestay.service'
 import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
 import UserEdit from '../components/user/UserEdit';
 import MyOrder from '../components/user/MyOrder';
+import WishList from '../components/user/WishList';
 
 const SearchResult = props => {
 
@@ -47,6 +48,7 @@ const SearchResult = props => {
 
                     <div className="col-9">
                         <Switch>
+                            <Route path={`${path}/wishlist`} component={WishList} />
                             <Route path={`${path}/setting`} component={UserEdit} />
                             <Route path={`${path}/my-order`} component={MyOrder} />
                         </Switch>

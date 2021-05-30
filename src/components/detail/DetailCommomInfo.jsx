@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import {homestayService} from '../../services/homestay.service'
+import {userService} from '../../services/user.service'
 
 
 const DetailCommomInfo = props => {
@@ -14,7 +15,22 @@ const DetailCommomInfo = props => {
     const [hsType, setHsType] = useState([]);
     const [utility, setUtility] = useState([]);
     const [price, setPrice] = useState([]);
+    const [isWished, setIsWished] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     
+    const changeWish = () => {
+        if (isWished) {
+            userService.deleteWish(hsIdState['id']).then((response) => {
+                setIsWished(false)
+            })
+        } else {
+            userService.addToWish(hsIdState['id']).then((response) => {
+                setIsWished(true)
+            })
+        }
+
+    }
+
     useEffect(() => {
         homestayService.getHsImage(hsIdState['id']).then((response) => {
             setImages(response.data)
@@ -32,6 +48,17 @@ const DetailCommomInfo = props => {
         homestayService.getHsPrice(hsIdState['id']).then((response) => {
             setPrice(response.data)
         })
+
+        let userInfo = JSON.parse(localStorage.getItem('user'));
+        if (userInfo != null) {
+            setIsLoggedIn(true)
+            userService.checkWished(hsIdState['id']).then((response) => {
+                setIsWished(response.data.status)
+            })
+        }
+
+
+
     }, [])
 
     return (
@@ -71,11 +98,23 @@ const DetailCommomInfo = props => {
                     <div class="tags">
                         <span>{hsType.name}</span>
                     </div>
-                    <div class="review">
+                    {
+                        isLoggedIn ? 
+                        <div class="add_favorite" onClick={changeWish}>
+                            {/* <span class="num">4.9</span>
+                            <i class="material-icons">star</i>
+                            <span class="count">(1423 đánh giá)</span> */}
+                            <i class={"material-icons " + (isWished ? "active" : '')}>favorite</i>
+                            <span class="count"> {isWished ? 'Yêu thích' : 'Thêm vào yêu thích'}</span>
+                        </div>
+                        :
+                        ''
+                    }
+                    {/* <div class="review">
                         <span class="num">4.9</span>
                         <i class="material-icons">star</i>
                         <span class="count">(1423 đánh giá)</span>
-                    </div>
+                    </div> */}
                     <span class="locate d-block">{hs.location}</span>
                 </div>
                 <div class="wrap-right text-right">

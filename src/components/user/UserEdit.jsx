@@ -41,6 +41,7 @@ const UserEdit = () => {
     const [files, setFiles] = useState([]);
     const [user, setUser] = useState([])
     const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [pw, setPw] = useState('')
     const [newPw, setNewPw] = useState('')
@@ -111,6 +112,7 @@ const UserEdit = () => {
             })
             formData.append('name', name)            
             formData.append('email', email)            
+            formData.append('phone', phone)            
     
             userService.updateInfo(formData).then((response) => {
                 if (response.data.status === false) {
@@ -139,6 +141,7 @@ const UserEdit = () => {
         if (userInfo != null) {
             setName(userInfo['name']);
             setEmail(userInfo['email']);
+            setPhone(userInfo['phone']);
         }
 
     }, [])
@@ -155,15 +158,20 @@ const UserEdit = () => {
     ));
     return (
         <div className="edit_user_info">
-                <h4>Cài đặt thông tin chung</h4>
+                <h4 className="mb-4">Cài đặt thông tin chung</h4>
                 <div className="input-info">
                 <div className="position-relative wrap-box">
-                    <div className="box">
+                    <div className="box box_full">
                         <input type="text" value={email} disabled className="input-name-email" placeholder="Email" />
                     </div>
                     <div className="box">
                         <input type="text" value={name} onChange={event => setName(event.target.value)} className="input-name-address" placeholder="Tên" />
                         <span className={"validator_error " + (isValidateError && validatorMes.name ? 'visible' : 'invisible')}>*{validatorMes.name}</span>
+                    </div>
+                
+                    <div className="box">
+                        <input type="text" value={phone} onChange={event => setPhone(event.target.value)} className="input-name-address" placeholder="Số điện thoại" />
+                        {/* <span className={"validator_error " + (isValidateError && validatorMes.phone ? 'visible' : 'invisible')}>*{validatorMes.name}</span> */}
                     </div>
                 
                 </div>
