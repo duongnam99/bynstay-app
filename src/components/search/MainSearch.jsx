@@ -19,6 +19,7 @@ const MainSearch = props => {
     const [query, setQuery] = useState('');
     const [placeSearchRs, setPlaceSearchRs] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState();
+    const [selectedPlaceType, setSelectedPlaceType] = useState();
     const [placename, setPlaceName] = useState('');
     const [showSuggest, setShowSuggest] = useState(false);
     const [validatorPlaceNameError, setValidatorPlaceNameError] = useState(false);
@@ -31,11 +32,17 @@ const MainSearch = props => {
             setValidatorPlaceNameError(true);
             return;
         }
-        history.push({
-            pathname: `/result`,
-            search: '?id='+selectedPlace,
-            state: {placename: placename, selectedPlace: selectedPlace, query: query, from: fromDate, to: toDate, numGuess: numPassenger, numNight: numNight}
-        })
+        if (selectedPlaceType != 'homestay') {
+            history.push({
+                pathname: `/result`,
+                search: '?id='+selectedPlace + '&type=' + selectedPlaceType,
+                state: {placename: placename, selectedPlace: selectedPlace, selectedPlaceType: selectedPlaceType, query: query, from: fromDate, to: toDate, numGuess: numPassenger, numNight: numNight}
+            })
+        } else {
+            history.push({
+                pathname: `/home-detail/${selectedPlace}`,
+            })
+        }
     }
 
     const handleChangeNumGuess = event => {
@@ -53,6 +60,7 @@ const MainSearch = props => {
 
     const selectPlace = event => {
         setSelectedPlace(event.target.getAttribute('value'));
+        setSelectedPlaceType(event.target.getAttribute('type'));
         setPlaceName(event.target.textContent);
         setShowSuggest(false)
     }
@@ -111,10 +119,15 @@ const MainSearch = props => {
                                 <ul class={"list-return" + (showSuggest ? '' : ' d-none')}>
                                     {placeSearchRs.map((item, i) =>
                                           <li class="item-return">
-                                          <a href="javascript:;" value={item.id} onClick={selectPlace}>
-                                              {item.name}
-                                          </a>
-                                      </li>
+                                            <a href="javascript:;" value={item.id} type={item.s_type} onClick={selectPlace}>
+                                                {item.name}
+                                            </a>
+                                            {item.s_type == 'homestay' ? 
+                                            <i class="material-icons">home</i>
+                                            :
+                                            <i class="material-icons">place</i>
+                                            }
+                                        </li>
                                     )}
                                 
                                 </ul>

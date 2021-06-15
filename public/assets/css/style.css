@@ -16533,6 +16533,12 @@ header .primery-menu .main-menu .menu-item a .dub-ic .flight {
 
 .search_home .tab_main .tab-hotel .input-address .list-return li {
   padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.search_home .tab_main .tab-hotel .input-address .list-return li i{
+  font-size: 16px;
 }
 
 .search_home .tab_main .tab-hotel .input-address .list-return li a {
@@ -19426,4 +19432,10 @@ header .hum_nav {
 .box_full {
   flex: 0 0 100%!important;
   margin-bottom: 15px;
+}
+
+.tag-util{
+  margin: 7px 5px 0 0!important;
+  font-size: 11px!important;
+  background-color: #c88a8b!important;
 }

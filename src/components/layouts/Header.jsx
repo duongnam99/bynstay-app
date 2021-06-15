@@ -66,10 +66,10 @@ const Header = () => {
                         </li> */}
                         { user != null ? 
                         <li class="menu-item">
-                            <a href="">
+                           <NavLink to={`/user/my-order`}>
                                 <i class="material-icons">chrome_reader_mode</i>
                                 Lịch đặt của tôi 
-                            </a>
+                            </NavLink>
                         </li>
                         : ''
                         }

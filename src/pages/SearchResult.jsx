@@ -1,49 +1,46 @@
-import React, {Component, useState, useEffect } from 'react';
-import Axios from "axios";
-import { stringify } from "querystring";
+import React, {Component, useState, useEffect, useCallback } from 'react';
 
 import Header from '../components/layouts/Header'
 import Footer from '../components/layouts/Footer'
 import Banner from '../components/banners/Banner'
-import FilterBookingResult from '../components/filters/FilterBookingResult'
-import TitleBookingResult from '../components/titles/TitleBookingResult'
-import SearchBookingResult from '../components/search/SearchBookingResult'
+
 import ItemsBookingResult from '../components/items/ItemsBookingResult'
 import Pagination from '../components/common/Pagination'
 import NotFoundBookingResult from '../components/common/NotFoundBookingResult'
 
 import MainSearch from '../components/search/MainSearch'
-import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/dark.css";
 import {homestayService} from '../services/homestay.service'
-import { Router, Route, Switch, Redirect, NavLink, useRouteMatch, useParams, useHistory, Link } from 'react-router-dom';
 
 const SearchResult = props => {
 
-    const {placename, selectedPlace, query, from, to, numGuess, numNight} = props.location.state
+    const {placename, selectedPlace, selectedPlaceType, query, from, to, numGuess, numNight} = props.location.state
 
-    const history = useHistory();
-    let { path, url } = useRouteMatch();
-    const [price, setPrice] = useState([]);
-    const [date, setDate] = useState('');
-    const [fromDate, setFromDate] = useState(new Date());
-    const [toDate, setToDate] = useState(new Date());
-    const [numPassenger, setNumPassenger] = useState(1);
-    const [newNumNight, setNewNumNight] = useState(1);
+    // const history = useHistory();
+    // let { path, url } = useRouteMatch();
+    // const [price, setPrice] = useState([]);
+    // const [date, setDate] = useState('');
+    // const [fromDate, setFromDate] = useState(new Date());
+    // const [toDate, setToDate] = useState(new Date());
+    // const [numPassenger, setNumPassenger] = useState(1);
+    // const [newNumNight, setNewNumNight] = useState(1);
     const [parentUtil, setParentUtil] = useState([]);
     const [hsTypes, setHsTypes] = useState([]);
     const [resultHs, setResultHs] = useState([]);
     const [hsIds, setHsIds] = useState([]);
-    const [originIdsHs, setOriginIdsHs] = useState([]);
+    // const [originIdsHs, setOriginIdsHs] = useState([]);
     const [sortType, setSortType] = useState(1);
-    const [hsType, setHsType] = useState(1);
+    const [hsType, setHsType] = useState(0);
     const [utilsFilter, setUtilsFilter] = useState([]);
+    const [placeId, setPlaceId] = useState(selectedPlace);
 
     // const handleChangeNumGuess = event => {
     //     setNumPassenger(event.target.value)
     // }
 
     const handleChangeSortType = event => {
+        setSortType(event.target.value);
+
         homestayService.sortHsPrice(hsIds, event.target.value).then((response) => {
             if (response.data.status === false) {
                 setResultHs([])
@@ -52,8 +49,6 @@ const SearchResult = props => {
                 // setHsIds(response.data.ids)
             }
         })
-        setSortType(event.target.value);
-     
     }
 
     const handleChangefilterUtil = event => {
@@ -68,7 +63,6 @@ const SearchResult = props => {
         }
         console.log(utilsFilter)
         homestayService.filterUtil(hsIds, utilsFilter).then((response) => {
-            console.log('asdf');
             if (response.data.status === false) {
                 setResultHs([])
             } else {
@@ -81,45 +75,55 @@ const SearchResult = props => {
     }
 
     const handleChangeHsType = event => {
-        homestayService.filterHsType(hsIds, event.target.value).then((response) => {
+        setHsType(event.target.value);
+
+        homestayService.getHsByPlace(selectedPlace, selectedPlaceType).then((response) => {
             if (response.data.status === false) {
                 setResultHs([])
             } else {
-                setResultHs(response.data.hs)
-                // setHsIds(response.data.ids)
-                // setOriginIdsHs(response.data.ids)
+                let resultFilter = [];
+                let resultIds = [];
+                response.data.hs.forEach(function(item){
+                    if (item.type_id == event.target.value) {
+                        resultFilter.push(item);
+                        resultIds.push(item.id);
+                    }
+                });
+                setResultHs(resultFilter);
+                setHsIds(resultIds)
             }
         })
-        setHsType(event.target.value);
+        
     }
 
-    // const handleDateRangeChange = (selectedDates, dateStr, instance) => {
-    //     let dates = dateStr.split(" to ");
-    //     let from = new Date(dates[0])
-    //     let to = new Date(dates[1])
-    //     let range = Math.abs(to - from);
-
-    //     setNewNumNight(range/86400000 + 1);
-    //     setDate(dateStr)
-    //     setFromDate(dates[0])
-    //     setToDate(dates[1])
-    // }
-
-    // const search = event => {
-    //     history.push({
-    //         pathname: `/result`,
-    //         state: {from: fromDate, to: toDate, numGuess: numPassenger, numNight: numNight}
-    //     })
-    // }
     const searchProps = {
         placename: placename,
         selectedPlace: selectedPlace,
+        selectedPlaceType: selectedPlaceType,
         query: query,
         from: from, 
         to: to, 
         numGuess: numGuess, 
         numNight: numNight
     }
+
+    const loadResult = async () => {
+        homestayService.getHsByPlace(selectedPlace, selectedPlaceType).then((response) => {
+            if (response.data.status === false) {
+                setResultHs([])
+            } else {
+                console.log(response.data.hs)
+                setResultHs(response.data.hs)
+                setHsIds(response.data.ids)
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (placeId !== props.location.state.selectedPlace){
+            setPlaceId(props.location.state.selectedPlace);
+        }
+    })
 
     useEffect(() => {
         homestayService.getParentUtility().then((response) => {
@@ -130,16 +134,24 @@ const SearchResult = props => {
             setHsTypes(response.data)
         })
 
-        homestayService.getHsByPlace(selectedPlace).then((response) => {
-            if (response.data.status === false) {
-                setResultHs([])
-            } else {
-                console.log(response.data)
-                setResultHs(response.data.hs)
-                setHsIds(response.data.ids)
-            }
-        })
-    }, [selectedPlace])
+    }, [])
+
+    useEffect(() => {
+        setResultHs([]);
+    }, [sortType, hsType])
+
+    useEffect(() => {
+        // homestayService.getParentUtility().then((response) => {
+        //     setParentUtil(response.data)
+        // })
+
+        // homestayService.getHsType().then((response) => {
+        //     setHsTypes(response.data)
+        // })
+
+        setResultHs([]);
+        loadResult();
+    }, [placeId])
 
     return (
         <>
@@ -240,7 +252,6 @@ const SearchResult = props => {
                     </div>
                     <div class="col-md-9">
                                             
-                        {/* <SearchBookingResult /> */}
                         {resultHs.map((item, i) =>
                             <ItemsBookingResult {...item}/>
                         )}

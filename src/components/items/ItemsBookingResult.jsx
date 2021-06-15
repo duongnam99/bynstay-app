@@ -15,34 +15,38 @@ const ItemsBookingResult = props => {
     }
 
     useEffect(() => {
-        homestayService.getHsImage(hs.id).then((response) => {
-            setImages(response.data)
-        })
+        // homestayService.getHsImage(hs.id).then((response) => {
+        //     setImages(response.data)
+        // })
 
-        homestayService.getHomestayType(hs.id).then((response) => {
-            setHsType(response.data)
-        })
+        // homestayService.getHomestayType(hs.id).then((response) => {
+        //     setHsType(response.data)
+        // })
     
-        homestayService.getHsPrice(hs.id).then((response) => {
-            setPrice(response.data)
-        })
+        // homestayService.getHsPrice(hs.id).then((response) => {
+        //     setPrice(response.data)
+        // })
     }, [])
     return (
         <div class="item_booking_result">
         <div class="block-main">
             <Link className="wrap" target="_blank" to={{ pathname: `home-detail/${hs.id}`}}>
                 <div class="wrap-img">
-                    <img src={images.length > 0 ? images[0].url : "./assets/images/rsz_temp_bk_result.png"} alt="" />
+                    <img src={hs.images.length > 0 ? process.env.REACT_APP_BASE_API_URL + 'uploads/' + hs.images[0].image : "./assets/images/rsz_temp_bk_result.png"} alt="" />
                 </div>
             </Link>
             <div class="info">
                 <Link className="name" target="_blank" to={{ pathname: `home-detail/${hs.id}`}}>{hs.name}</Link>
-                <span class="tag">{hsType.name}</span>
+                <span class="tag">{hs.type != null ? hs.type.name : ''}</span>
                 <div class="stars">
-                    
                     {/* <span>(1323 đánh giá)</span> */}
                 </div>
-                <div class="locate">{hs.location}</div>
+                <div class="locate mt-0">{hs.location}</div>
+                <div>
+                    {hs.utilities.slice(0, 4).map((item, i) => 
+                        <span class="tag tag-util mr-2">{item.name}</span>
+                    )}
+                </div>
             </div>
             <div class="box">
                 <div class="wrap-top">
@@ -52,7 +56,7 @@ const ItemsBookingResult = props => {
                 <div class="price">
                 
                     {/* <div class="old">1,099,445 VNĐ</div> */}
-                    <div class="new">{price.price_normal} VNĐ</div>
+                    <div class="new">{hs.prices != null ? hs.prices.price_normal : ''} VNĐ</div>
                     <span onClick={toggleShowDetail} class="tgl"> <span>Chi tiết chi phí </span> <i class="material-icons"> expand_less </i></span>
                 </div>
             </div>

@@ -89,9 +89,10 @@ function searchPlace(query) {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/search-place', {params: params}, config);
 }
 
-function getHsByPlace(id) {
+function getHsByPlace(id, type) {
     let params = {
-        'id': id
+        'id': id,
+        'type': type
     }
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/hs-by-place', {params: params}, config);
 }
@@ -102,6 +103,11 @@ function sortHsPrice(ids, type) {
         'ids': ids,
         'type': type
     }
+    // let data = {
+    //     'id': id,
+    //     'id_type': idType,
+    //     'type': type
+    // }
     return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/sort-hs', data, config);
 }
 
