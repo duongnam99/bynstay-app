@@ -19439,3 +19439,18 @@ header .hum_nav {
   font-size: 11px!important;
   background-color: #c88a8b!important;
 }
+.btn_filter {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #bf2d69;
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  padding: 0;
+  border: none;
+}
+.btn_filter i{
+  vertical-align: sub;
+  font-size: 17px;
+}

@@ -119,13 +119,15 @@ function filterHsType(ids, type) {
     return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/filter-hs-type', data, config);
 }
 
-function filterUtil(ids, utilsFilter) {
+function filterUtil(originResultIds, hsType, sortType, utilsFilter) {
     let data = {
-        'ids': ids,
+        'ids': originResultIds,
+        'hs_type': hsType,
+        'sort_type': sortType,
         'idUtils': utilsFilter
     }
-    console.log(data)
-    return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/filter-hs-util', data, config);
+    // return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/filter-hs-util', data, config);
+    return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/search-filter-hs', data, config);
 }
 function getHs() {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/homestay', config);

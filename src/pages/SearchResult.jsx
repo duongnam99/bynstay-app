@@ -27,28 +27,16 @@ const SearchResult = props => {
     const [parentUtil, setParentUtil] = useState([]);
     const [hsTypes, setHsTypes] = useState([]);
     const [resultHs, setResultHs] = useState([]);
+    const [originResultIds, setOriginResultHsIds] = useState([]);
     const [hsIds, setHsIds] = useState([]);
-    // const [originIdsHs, setOriginIdsHs] = useState([]);
-    const [sortType, setSortType] = useState(1);
-    const [hsType, setHsType] = useState(0);
+    const [sortType, setSortType] = useState("0");
+    const [hsType, setHsType] = useState("0");
     const [utilsFilter, setUtilsFilter] = useState([]);
     const [placeId, setPlaceId] = useState(selectedPlace);
-
-    // const handleChangeNumGuess = event => {
-    //     setNumPassenger(event.target.value)
-    // }
 
     const handleChangeSortType = event => {
         setSortType(event.target.value);
 
-        homestayService.sortHsPrice(hsIds, event.target.value).then((response) => {
-            if (response.data.status === false) {
-                setResultHs([])
-            } else {
-                setResultHs(response.data.hs)
-                // setHsIds(response.data.ids)
-            }
-        })
     }
 
     const handleChangefilterUtil = event => {
@@ -61,8 +49,12 @@ const SearchResult = props => {
                 utilsFilter.splice(index, 1);
             }
         }
-        console.log(utilsFilter)
-        homestayService.filterUtil(hsIds, utilsFilter).then((response) => {
+     
+    }
+
+    const processFilter = event => {
+        setResultHs([]);
+        homestayService.filterUtil(originResultIds, hsType, sortType, utilsFilter).then((response) => {
             if (response.data.status === false) {
                 setResultHs([])
             } else {
@@ -70,29 +62,10 @@ const SearchResult = props => {
                 setHsIds(response.data.ids)
             }
         })
-        setSortType(event.target.value);
-     
     }
 
     const handleChangeHsType = event => {
         setHsType(event.target.value);
-
-        homestayService.getHsByPlace(selectedPlace, selectedPlaceType).then((response) => {
-            if (response.data.status === false) {
-                setResultHs([])
-            } else {
-                let resultFilter = [];
-                let resultIds = [];
-                response.data.hs.forEach(function(item){
-                    if (item.type_id == event.target.value) {
-                        resultFilter.push(item);
-                        resultIds.push(item.id);
-                    }
-                });
-                setResultHs(resultFilter);
-                setHsIds(resultIds)
-            }
-        })
         
     }
 
@@ -112,8 +85,8 @@ const SearchResult = props => {
             if (response.data.status === false) {
                 setResultHs([])
             } else {
-                console.log(response.data.hs)
                 setResultHs(response.data.hs)
+                setOriginResultHsIds(response.data.ids)
                 setHsIds(response.data.ids)
             }
         })
@@ -136,19 +109,11 @@ const SearchResult = props => {
 
     }, [])
 
-    useEffect(() => {
-        setResultHs([]);
-    }, [sortType, hsType])
+    // useEffect(() => {
+        // setResultHs([]);
+    // }, [sortType, hsType, utilsFilter])
 
     useEffect(() => {
-        // homestayService.getParentUtility().then((response) => {
-        //     setParentUtil(response.data)
-        // })
-
-        // homestayService.getHsType().then((response) => {
-        //     setHsTypes(response.data)
-        // })
-
         setResultHs([]);
         loadResult();
     }, [placeId])
@@ -243,6 +208,7 @@ const SearchResult = props => {
                                             <div class="state"><label>{item.name}</label></div>
                                         </div>
                                         )}
+                                    <button class="btn_filter" onClick={processFilter}><i class="material-icons">filter_list</i>Áp dụng</button>
                                      
                                     </div>
                                 </div>
