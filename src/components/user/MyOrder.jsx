@@ -40,11 +40,25 @@ const img = {
     height: '100%'
 };
 
+
 const MyOrder = () => {
     const [homestays, setHomestays] = useState([]);
     const [user, setUser] = useState([])
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+
+    const resendMail = (orderId) => (event) => {
+        event.target.disabled = true;
+        toast.success('Gửi yêu cầu thành công');
+        userService.resendMailOrder(orderId).then((response) => {
+            if (response.data.send) {
+                
+            }
+        }).catch(error => {
+            toast.error('Gửi yêu cầu thất bại');
+
+        })
+    }
 
     useEffect(() => {
 
@@ -78,6 +92,12 @@ const MyOrder = () => {
                         <span class="tag"></span>
                         <div class="stars"></div>
                         <div class="locate">{item.homestay.location}</div>
+                        {
+                            item.payment_status == 1 && item.order_status == 0 ? 
+                            <button className="resend_mail mt-2"  onClick={(event) => resendMail(item.id)(event)}> <i class="material-icons">mail</i> Gửi lại mail</button>
+                            :
+                            ''
+                        }
                     </div>
                     <div class="box">
                         <div class="block-a w-100" style={orderState}>
@@ -100,6 +120,7 @@ const MyOrder = () => {
                         </div>
                         <div class="block-b w-100">
                             <div class="line"><span>Số đêm</span><span> <b>{item.num_night} đêm</b></span></div>
+                            <div class="line"><span>Thời gian</span><span> <b>{item.start_date} đến {item.end_date}</b></span></div>
                             <div class="line"><span>Số người</span><span><b>{item.num_guess} khách</b></span></div>
                             <div class="line"><span>Chi phí</span><span><b>{item.fee} VNĐ</b></span></div>
                             <div class="line"><span>Mã đặt phòng</span><span> {item.success_code ? item.success_code : '...'}</span></div>

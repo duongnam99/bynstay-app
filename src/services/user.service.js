@@ -11,7 +11,8 @@ export const userService = {
     getWishListHs,
     deleteWish,
     checkWished,
-    addToWish
+    addToWish,
+    resendMailOrder
 };
 
 const config = {headers: {'content-type': 'application/json'}};
@@ -98,6 +99,10 @@ function deleteWish(hsId) {
 
 function checkWished(hsId) {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/check-wished/' + hsId, permissionConfig);
+}
+
+function resendMailOrder(orderId) {
+    return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/resend-mail-order/' + orderId, permissionConfig);
 }
 
 function addToWish(hsId) {

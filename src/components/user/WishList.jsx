@@ -44,8 +44,6 @@ const WishList = () => {
 
     const deleteWish = (hsId, pos) => {
         userService.deleteWish(hsId).then((response) => {
-            // wishlist.splice(pos, 1);
-            // setWishList(wishlist)
 
             userService.getWishListHs().then((response) => {
                 setWishList(response.data.reverse())

@@ -19454,3 +19454,22 @@ header .hum_nav {
   vertical-align: sub;
   font-size: 17px;
 }
+
+.resend_mail {
+  font-size: 12px;
+  border: none;
+  display: block;
+  border-radius: 4px;
+  background-color: #75427b;
+  color: #fff;
+}
+
+.resend_mail:hover {
+  /* background-color: #6e3575; */
+  cursor: pointer;
+}
+
+.resend_mail i{
+  font-size: 14px;
+  vertical-align: middle;
+}
