@@ -153,10 +153,10 @@ const Header = () => {
                         </a>
                     </li> */}
                     <li class="menu-item">
-                        <a href="#">
+                        <Link className="wrap-img" to={{ pathname: `/user/wishlist` }}>
                             <i class="material-icons local_activity">local_activity</i>
-                            Top homestay 
-                        </a>
+                            Homestay yêu thích 
+                        </Link>
                     </li>
                 </ul>
             </div>
@@ -172,14 +172,19 @@ const Header = () => {
                 <i class="material-icons flight">flight</i>
                 Địa điểm
             </a>
-            <a href="#">
+            <Link className="wrap-img" to={{ pathname: `/user/wishlist` }}>
                 <i class="material-icons local_activity">local_activity</i>
-                Homestay đứng top
-            </a>
-            <a href="">
-                <i class="material-icons">chrome_reader_mode</i>
-                Lịch đặt của tôi 
-            </a>
+                Homestay yêu thích 
+            </Link>
+            { user != null ? 
+                <li class="menu-item">
+                    <NavLink to={`/user/my-order`}>
+                        <i class="material-icons">chrome_reader_mode</i>
+                        Lịch đặt của tôi 
+                    </NavLink>
+                </li>
+                : ''
+            }
             <div class="menu_top">
                    
                 </div>

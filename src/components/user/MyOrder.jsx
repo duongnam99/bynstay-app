@@ -49,10 +49,11 @@ const MyOrder = () => {
 
     const resendMail = (orderId) => (event) => {
         event.target.disabled = true;
+        event.target.disabled = true;
         toast.success('Gửi yêu cầu thành công');
         userService.resendMailOrder(orderId).then((response) => {
             if (response.data.send) {
-                
+
             }
         }).catch(error => {
             toast.error('Gửi yêu cầu thất bại');

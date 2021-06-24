@@ -12,7 +12,8 @@ export const homestayService = {
     checkoutSanbox,
     getHsOrder,
     getHsOrderedTime,
-    getRecommendedHs,
+    getRandomHs,
+    getRecommendHs,
     getSuggestedPlaces,
     getParentUtility,
     getHsType,
@@ -21,7 +22,9 @@ export const homestayService = {
     sortHsPrice,
     filterHsType,
     filterUtil,
-    getHs
+    getHs,
+    getHsByIds
+
 };
 
 const config = {headers: {'content-type': 'application/json'}};
@@ -65,8 +68,16 @@ function getHsOrderedTime(id) {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/homestay-ordered-time/' + id, config);
 }
 
-function getRecommendedHs() {
+function getRandomHs() {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/homestay-suggested/', config);
+}
+
+function getRecommendHs(userId, hsId) {
+    let params = {
+        'user_id': userId,
+        'hs_id': hsId,
+    }
+    return Axios.get(process.env.REACT_APP_BASE_RECOMMEND_API_URL + 'homestay/recommend', {params: params}, config);
 }
 
 function getSuggestedPlaces() {
@@ -131,6 +142,13 @@ function filterUtil(originResultIds, hsType, sortType, utilsFilter) {
 }
 function getHs() {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/homestay', config);
+}
+
+function getHsByIds(hsIds) {
+    let data = {
+        'ids': hsIds,
+    }
+    return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/homestay', data, config);
 }
 
 function calHsFee(price, numNight, numGuess) {

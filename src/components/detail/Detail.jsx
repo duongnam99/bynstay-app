@@ -9,6 +9,7 @@ import DetailCommomInfo from '../detail/DetailCommomInfo'
 import DesDetail from '..//detail/DesDetail'
 import ConditionDetail from '../detail/ConditionDetail'
 import PriceDetail from '../detail/PriceDetail';
+import SimilarHomestays from './SimilarHomestays';
 
 const Detail = () => {
     let { path, url } = useRouteMatch();
@@ -25,6 +26,7 @@ const Detail = () => {
                 {/* <DesDetail /> */}
                 <PriceDetail {...hs}/>
                 <ConditionDetail {...hs}/>
+                <SimilarHomestays {...hs}/>
             </div>
         </>
     );

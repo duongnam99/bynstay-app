@@ -15,7 +15,7 @@ const HomePage = () => {
     const [places, setPlaces] = useState([]);
 
     useEffect(() => {
-        homestayService.getRecommendedHs().then((response) => {
+        homestayService.getRandomHs().then((response) => {
             setHs(response.data.homestay)
         })
   
@@ -32,26 +32,26 @@ const HomePage = () => {
             <MainSearch />
             
             <div class="container list_item_booking_1 mt-5">
-            <div class="title text-center">Điểm đến phổ biến</div>
-            <div class="row">
-                {places.map((item, i) =>
-                <div class="col-md-3 col-6">
-                    <ItemBooking1 {...item}/>
+                <div class="title text-center">Điểm đến phổ biến</div>
+                <div class="row">
+                    {places.map((item, i) =>
+                    <div class="col-md-3 col-6">
+                        <ItemBooking1 {...item}/>
+                    </div>
+                    )}
+                
                 </div>
+            </div>
+            <div class="container list_item_booking_2 mt-5">
+                <div class="title text-center">Homestay gợi ý</div>
+                <div class="row">
+                {hs.map((item, i) =>
+                    <div class="col-md-4 col-6">
+                        <ItemBooking2 {...item}/>
+                    </div>
                 )}
-              
-            </div>
-        </div>
-        <div class="container list_item_booking_2 mt-5">
-            <div class="title text-center">Homestay gợi ý</div>
-            <div class="row">
-            {hs.map((item, i) =>
-                <div class="col-md-4 col-6">
-                    <ItemBooking2 {...item}/>
                 </div>
-            )}
             </div>
-        </div>
 
         <Footer />
 
