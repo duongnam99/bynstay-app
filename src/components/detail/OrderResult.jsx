@@ -92,7 +92,7 @@ const OrderResult = props => {
                     </div>
                     <div class="final">
                         <span class="left">Thông tin thanh toán đã được gửi về email </span>
-                        <a class="right" href="">Về trang chủ</a>
+                        <NavLink to={`/`} class="right" href="">Về trang chủ</NavLink>
                     </div>
                 </div>
                 </div>
