@@ -100,10 +100,12 @@ function searchPlace(query) {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/search-place', {params: params}, config);
 }
 
-function getHsByPlace(id, type) {
+function getHsByPlace(id, type, start, end) {
     let params = {
         'id': id,
-        'type': type
+        'type': type,
+        '_start': start,
+        '_end': end
     }
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/pub/hs-by-place', {params: params}, config);
 }

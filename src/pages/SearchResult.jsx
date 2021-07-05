@@ -1,4 +1,5 @@
 import React, {Component, useState, useEffect, useCallback } from 'react';
+import { Router, Route, Switch, Redirect, NavLink, useRouteMatch } from 'react-router-dom';
 
 import Header from '../components/layouts/Header'
 import Footer from '../components/layouts/Footer'
@@ -16,14 +17,6 @@ const SearchResult = props => {
 
     const {placename, selectedPlace, selectedPlaceType, query, from, to, numGuess, numNight} = props.location.state
 
-    // const history = useHistory();
-    // let { path, url } = useRouteMatch();
-    // const [price, setPrice] = useState([]);
-    // const [date, setDate] = useState('');
-    // const [fromDate, setFromDate] = useState(new Date());
-    // const [toDate, setToDate] = useState(new Date());
-    // const [numPassenger, setNumPassenger] = useState(1);
-    // const [newNumNight, setNewNumNight] = useState(1);
     const [parentUtil, setParentUtil] = useState([]);
     const [hsTypes, setHsTypes] = useState([]);
     const [resultHs, setResultHs] = useState([]);
@@ -33,6 +26,10 @@ const SearchResult = props => {
     const [hsType, setHsType] = useState("0");
     const [utilsFilter, setUtilsFilter] = useState([]);
     const [placeId, setPlaceId] = useState(selectedPlace);
+    const [totalHs, setTotalHs] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [startRs, setStartRs] = useState(0);
+    const [endRs, setEndRs] = useState(5);
 
     const handleChangeSortType = event => {
         setSortType(event.target.value);
@@ -66,7 +63,6 @@ const SearchResult = props => {
 
     const handleChangeHsType = event => {
         setHsType(event.target.value);
-        
     }
 
     const searchProps = {
@@ -81,11 +77,12 @@ const SearchResult = props => {
     }
 
     const loadResult = async () => {
-        homestayService.getHsByPlace(selectedPlace, selectedPlaceType).then((response) => {
+        homestayService.getHsByPlace(selectedPlace, selectedPlaceType, startRs, endRs).then((response) => {
             if (response.data.status === false) {
                 setResultHs([])
             } else {
                 setResultHs(response.data.hs)
+                setTotalHs(response.data.total)
                 setOriginResultHsIds(response.data.ids)
                 setHsIds(response.data.ids)
             }
@@ -97,6 +94,19 @@ const SearchResult = props => {
             setPlaceId(props.location.state.selectedPlace);
         }
     })
+
+    const handleChangePage = i => {
+        setCurrentPage(i)
+        setStartRs(i*5)
+        setEndRs(i*5 + 5)
+        setResultHs([]);
+        homestayService.getHsByPlace(selectedPlace, selectedPlaceType, i*5, i*5 + 5).then((response) => {
+            setResultHs(response.data.hs)
+            setTotalHs(response.data.total)
+            setOriginResultHsIds(response.data.ids)
+            setHsIds(response.data.ids)
+        })
+    }
 
     useEffect(() => {
         homestayService.getParentUtility().then((response) => {
@@ -128,7 +138,7 @@ const SearchResult = props => {
                 {/* <TitleBookingResult /> */}
                 <div class="title_booking_result mb-3">
                     <div class="wrap">
-                        <div class="title">Có {resultHs.length} điểm lưu trú ở {placename}</div>
+                        <div class="title">Có {totalHs} điểm lưu trú ở {placename}</div>
                         {/* <a href=""><span>Thay đổi tìm kiếm</span></a> */}
                     </div>
                     <div class="date">Ngày {from} - {to}</div>
@@ -223,8 +233,24 @@ const SearchResult = props => {
                         )}
 
                         {/* <Pagination /> */}
-                        {Object.keys(resultHs).length == 0 ? <NotFoundBookingResult /> : ''}
+                        {Object.keys(resultHs).length == 0 
+                        ? 
+                        <NotFoundBookingResult /> 
+                        : 
+                        ''
+                        }
+
+                        <div class="pagination_cus mt-5">
+                            <a href="javascript:void(0)" class="prev" onClick={() => handleChangePage(currentPage-1)}><span>Trước</span></a>
+                     
+                            {[...Array(Math.ceil(totalHs/5)).keys()].map((item, i) =>
+                                <a href="javascript:void(0)" className={ i == currentPage ? "active" : ''} start={i*5} onClick={() => handleChangePage(i)}><span>{i + 1}</span></a>
+                            )}
+                            <a href="javascript:void(0)" class="next" onClick={() => handleChangePage(currentPage+1)}><span>Sau</span></a>
+
+                        </div>
                         
+
                     </div>
                 </div>
 
