@@ -27,6 +27,7 @@ const SearchResult = props => {
     const [utilsFilter, setUtilsFilter] = useState([]);
     const [placeId, setPlaceId] = useState(selectedPlace);
     const [totalHs, setTotalHs] = useState(0);
+    
     const [currentPage, setCurrentPage] = useState(0);
     const [startRs, setStartRs] = useState(0);
     const [endRs, setEndRs] = useState(5);
@@ -96,10 +97,10 @@ const SearchResult = props => {
     })
 
     const handleChangePage = i => {
+        setResultHs([]);
         setCurrentPage(i)
         setStartRs(i*5)
         setEndRs(i*5 + 5)
-        setResultHs([]);
         homestayService.getHsByPlace(selectedPlace, selectedPlaceType, i*5, i*5 + 5).then((response) => {
             setResultHs(response.data.hs)
             setTotalHs(response.data.total)
