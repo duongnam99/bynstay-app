@@ -82,7 +82,7 @@ const OrderPaymethod = props => {
                         </div>
                         <div class="checkout">
                             <span>Thanh toán</span>
-                            <span>{fee} VNĐ</span>
+                            <span>{fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VNĐ</span>
                         </div>
                     </div>
                         <div class="final">
@@ -121,7 +121,7 @@ const OrderPaymethod = props => {
                                 </div>
                                 <div class="line">
                                     <span>Thanh toán</span>
-                                    <span><big>{fee} vnđ</big></span>
+                                    <span><big>{fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} vnđ</big></span>
                                 </div>
                             </div>
                         </div>

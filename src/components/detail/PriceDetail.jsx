@@ -85,8 +85,10 @@ const PriceDetail = props => {
             </div>
             <div class="wrap-right text-right">
                 <div class="price">
-                    <span class="old">Ngày đặc biệt: {price.price_special}</span>
-                    <span class="new">Ngày thường: {price.price_normal} <small><sup>vnđ</sup></small></span>
+                    {/* <span class="old">Ngày đặc biệt: {price.price_special}</span> */}
+                    <span class="old">Ngày đặc biệt: {price.price_special ? price.price_special.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''}</span>
+                    {/* <span class="new">Ngày thường: {price.price_normal} <small><sup>vnđ</sup></small></span> */}
+                    <span class="new">Ngày thường: {price.price_normal ? price.price_normal.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''} <small><sup>vnđ</sup></small></span>
                 </div>
                 {/* <a href="" class="book_now">Chọn</a> */}
             </div>
@@ -130,7 +132,7 @@ const PriceDetail = props => {
                 <div class="tit"> *Chi phí </div>
                 <div class="input-people ipt">
                     <i class="material-icons ic_1">money</i>
-                    <input className="hs_fee" type="text" readOnly value={fee + ' VNĐ'} />
+                    <input className="hs_fee" type="text" readOnly value={fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VNĐ'} />
                 </div>
             </div>
         

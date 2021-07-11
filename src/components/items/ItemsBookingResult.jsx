@@ -56,7 +56,7 @@ const ItemsBookingResult = props => {
                 <div class="price">
                 
                     {/* <div class="old">1,099,445 VNĐ</div> */}
-                    <div class="new">{hs.prices != null ? hs.prices.price_normal : ''} VNĐ</div>
+                    <div class="new">{hs.prices != null ? hs.prices.price_normal.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''} VNĐ</div>
                     <span onClick={toggleShowDetail} class="tgl"> <span>Chi tiết chi phí </span> <i class="material-icons"> expand_less </i></span>
                 </div>
             </div>
@@ -65,26 +65,26 @@ const ItemsBookingResult = props => {
             <div class="block-a">
                 <div class="line">
                     <span>Ngày đặc biệt</span>
-                    <span>{price.price_special} VNĐ</span>
+                    <span>{hs.prices ? hs.prices.price_special.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''} VNĐ</span>
                 </div>
                 <div class="line">
                     <span>Ngày bình thường</span>
-                    <span>{price.price_normal} VNĐ</span>
+                    <span>{hs.prices ? hs.prices.price_normal.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''} VNĐ</span>
                 </div>
          
             </div>
             <div class="block-b">
                 <div class="line">
                     <span>Số khách tối đa</span>
-                    <span>{price.max_guest} khách</span>
+                    <span>{hs.prices ? hs.prices.max_guest : ''} khách</span>
                 </div>
                 <div class="line">
                     <span>Số đêm tối đa</span>
-                    <span>{price.max_night} đêm</span>
+                    <span>{hs.prices ? hs.prices.max_night : ''} đêm</span>
                 </div>
                 <div class="line">
                     <span>Số đêm tối thiểu</span>
-                    <span>{price.min_night} đêm</span>
+                    <span>{hs.prices ? hs.prices.min_night : ''} đêm</span>
                 </div>
             </div>
         </div>

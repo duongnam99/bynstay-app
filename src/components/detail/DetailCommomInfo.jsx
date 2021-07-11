@@ -58,7 +58,9 @@ const DetailCommomInfo = props => {
             setHs(response.data)
             if (userInfo != null) {
                 let listVote = JSON.parse(response.data.voting);
-                setRating(listVote[userInfo.id]);
+                if (listVote != null) {
+                    setRating(listVote[userInfo.id]);
+                }
             }
             setCountNumVote(response.data.count_num_vote)
         })
@@ -152,8 +154,9 @@ const DetailCommomInfo = props => {
                 <div class="wrap-right text-right">
                     <span class="d-block name">Giá từ</span>
                     <div class="price">
-                        <span class="old">{price.price_special}</span>
-                        <span class="new">{price.price_normal} <small><sup>VNĐ</sup></small></span>
+                        <span class="old">{price.price_special ? price.price_special.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''}</span>
+                        {/* <span class="new">{price.price_normal} <small><sup>VNĐ</sup></small></span> */}
+                        <span class="new">{price.price_normal ? price.price_normal.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''} <small><sup>VNĐ</sup></small></span>
                     </div>
                     <a href="#booking_now" class="book_now">Đặt Ngay</a>
                 </div>
