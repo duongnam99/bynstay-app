@@ -51,7 +51,7 @@ const Header = () => {
                     </a>
                 </div>
                 <div class="menu_top">
-                { user != null ? 
+                
                     <ul class="main-menu">
                         {/* <li class="menu-item">
                             <a href="">
@@ -69,16 +69,18 @@ const Header = () => {
                         <li class="menu-item">
                             <a target="_blank" href="http://bynstayhost.azurewebsites.net/"><i class="material-icons">assistant_icon</i>Dành cho host</a>
                         </li>
+                        { user != null ? 
                         <li class="menu-item">
                            <NavLink to={`/user/my-order`}>
                                 <i class="material-icons">chrome_reader_mode</i>
                                 Lịch đặt của tôi 
                             </NavLink>
                         </li>
+                             : ''
+                            }
                       
                     </ul>
-                      : ''
-                    }
+                 
                     <div class="select-currency">
                         <span class="currency-show ic_vnd">VND</span>
                         <ul>
