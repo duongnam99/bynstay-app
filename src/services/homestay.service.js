@@ -23,8 +23,7 @@ export const homestayService = {
     filterHsType,
     filterUtil,
     getHs,
-    getHsByIds
-
+    getHsByIds,
 };
 
 const config = {headers: {'content-type': 'application/json'}};
@@ -152,6 +151,7 @@ function getHsByIds(hsIds) {
     }
     return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/pub/homestay', data, config);
 }
+
 
 function calHsFee(price, numNight, numGuess) {
     let fee = numNight*parseInt(price.price_normal)

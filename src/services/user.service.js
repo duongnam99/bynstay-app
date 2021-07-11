@@ -12,7 +12,8 @@ export const userService = {
     deleteWish,
     checkWished,
     addToWish,
-    resendMailOrder
+    resendMailOrder,
+    rate
 };
 
 const config = {headers: {'content-type': 'application/json'}};
@@ -103,6 +104,15 @@ function checkWished(hsId) {
 
 function resendMailOrder(orderId) {
     return Axios.get(process.env.REACT_APP_BASE_API_URL + 'api/cus/resend-mail-order/' + orderId, permissionConfig);
+}
+
+function rate(hsId, vote) {
+    let data = {
+        'id': hsId,
+        'voting': vote
+
+    }
+    return Axios.post(process.env.REACT_APP_BASE_API_URL + 'api/cus/rating-homestay', data, permissionConfig);
 }
 
 function addToWish(hsId) {

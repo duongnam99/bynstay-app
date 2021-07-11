@@ -240,19 +240,16 @@ const SearchResult = props => {
                         : 
                         ''
                         }
-                        { totalHs > 5 ? 
-                             <div class="pagination_cus mt-5">
-                             <a href="javascript:void(0)" class="prev" onClick={() => handleChangePage(currentPage-1)}><span>Trước</span></a>
-                      
-                             {[...Array(Math.ceil(totalHs/5)).keys()].map((item, i) =>
-                                 <a href="javascript:void(0)" className={ i == currentPage ? "active" : ''} start={i*5} onClick={() => handleChangePage(i)}><span>{i + 1}</span></a>
-                             )}
-                             <a href="javascript:void(0)" class="next" onClick={() => handleChangePage(currentPage+1)}><span>Sau</span></a>
- 
-                         </div>
-                         :
-                         ''
-                        }
+
+                        <div class="pagination_cus mt-5">
+                        <a href="javascript:void(0)" class="prev" onClick={() => handleChangePage(currentPage-1)}><span>Trước</span></a>
+                
+                        {[...Array(Math.ceil(totalHs/5)).keys()].map((item, i) =>
+                            <a href="javascript:void(0)" className={ i == currentPage ? "active" : ''} start={i*5} onClick={() => handleChangePage(i)}><span>{i + 1}</span></a>
+                        )}
+                        <a href="javascript:void(0)" class="next" onClick={() => handleChangePage(currentPage+1)}><span>Sau</span></a>
+
+                        </div>
                    
                         
 

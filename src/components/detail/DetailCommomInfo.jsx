@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {homestayService} from '../../services/homestay.service'
 import {userService} from '../../services/user.service'
-
+import StarRatings from 'react-star-ratings';
 
 const DetailCommomInfo = props => {
     const [hsIdState, setHsIdState] = useState(props);
@@ -17,6 +17,8 @@ const DetailCommomInfo = props => {
     const [price, setPrice] = useState([]);
     const [isWished, setIsWished] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [rating, setRating] = useState(3);
+    const [countNumVote, setCountNumVote] = useState(3);
     
     const changeWish = () => {
         if (isWished) {
@@ -31,12 +33,34 @@ const DetailCommomInfo = props => {
 
     }
 
+    const changeRating = (newRating, name) => {
+        setRating(newRating)
+        userService.rate(hsIdState['id'], newRating).then((response) => {
+            if (response.data.result) {
+                alert("Vote thành công!");
+            }
+        })
+    }
+
     useEffect(() => {
+        let userInfo = JSON.parse(localStorage.getItem('user'));
+        if (userInfo != null) {
+            setIsLoggedIn(true)
+            userService.checkWished(hsIdState['id']).then((response) => {
+                setIsWished(response.data.status)
+            })
+        }
+
         homestayService.getHsImage(hsIdState['id']).then((response) => {
             setImages(response.data)
         })
         homestayService.getHomestay(hsIdState['id']).then((response) => {
             setHs(response.data)
+            if (userInfo != null) {
+                let listVote = JSON.parse(response.data.voting);
+                setRating(listVote[userInfo.id]);
+            }
+            setCountNumVote(response.data.count_num_vote)
         })
         homestayService.getHomestayType(hsIdState['id']).then((response) => {
             setHsType(response.data)
@@ -48,16 +72,6 @@ const DetailCommomInfo = props => {
         homestayService.getHsPrice(hsIdState['id']).then((response) => {
             setPrice(response.data)
         })
-
-        let userInfo = JSON.parse(localStorage.getItem('user'));
-        if (userInfo != null) {
-            setIsLoggedIn(true)
-            userService.checkWished(hsIdState['id']).then((response) => {
-                setIsWished(response.data.status)
-            })
-        }
-
-
 
     }, [])
 
@@ -110,11 +124,29 @@ const DetailCommomInfo = props => {
                         :
                         ''
                     }
-                    {/* <div class="review">
-                        <span class="num">4.9</span>
+                    <div class="review">
+                        <span class="num">{hs.average_star}</span>
                         <i class="material-icons">star</i>
-                        <span class="count">(1423 đánh giá)</span>
-                    </div> */}
+                        <span class="count">({countNumVote} đánh giá)</span>
+                    </div>
+                    {
+                        isLoggedIn ? 
+                        <div className="vote">
+                            Đánh giá của bạn: 
+                            <StarRatings
+                                rating={rating}
+                                starRatedColor="rgb(255, 201, 56)"
+                                changeRating={changeRating}
+                                starDimension='25px'
+                                starSpacing='0'
+                                numberOfStars={5}
+                                name='rating'
+                            />
+                        </div>
+                        : ''
+                    }
+                   
+                    
                     <span class="locate d-block">{hs.location}</span>
                 </div>
                 <div class="wrap-right text-right">
